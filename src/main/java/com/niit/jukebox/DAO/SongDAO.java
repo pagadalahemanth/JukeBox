@@ -5,8 +5,10 @@ import com.niit.jukebox.model.Songs;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
-public class songDAO {
+public class SongDAO {
     public boolean insertSongs(Songs songs) throws SQLException
     {
         PreparedStatement insertStatement=JukeBoxConnection.getJukeBoxConnection().prepareStatement("insert into songs (songname,albumname,artist,genre,duration) values(?,?,?,?,?)");
@@ -20,7 +22,7 @@ public class songDAO {
         int result = insertStatement.executeUpdate();
         return result>0?true:false;
     }
-//To fetch song from db and store in ArrayList
+//To fetch a song from db
     public Songs getSong(String songName)throws SQLException
     {
         Songs songs=null;
@@ -31,5 +33,21 @@ public class songDAO {
             songs = new Songs(resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6));
         }
         return songs;
+    }
+    //to fetch all songs
+    public ArrayList<Songs> getAllSongs() throws SQLException{
+        ArrayList<Songs> songsArrayList=null;
+        Statement selectStatement=JukeBoxConnection.getJukeBoxConnection().createStatement();//establishes a connection to pass queries
+        ResultSet resultSet= selectStatement.executeQuery("select * from songs");
+        if(resultSet.isBeforeFirst()) {//if it is true db contains data...the cursor points to first line and that checks if data is present or not
+            //if that is present we will create new arraylist to store.
+            songsArrayList = new ArrayList<>();
+            while(resultSet.next()){
+                //.next() will not only checks the data it also fetch the data.
+                songsArrayList.add(new Songs(resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6)));
+
+            }
+        }
+        return songsArrayList;
     }
 }
