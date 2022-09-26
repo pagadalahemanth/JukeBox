@@ -1,10 +1,7 @@
-package com.niit.jukebox.methods;
-
-import com.mysql.cj.jdbc.ConnectionImpl;
+package com.niit.jukebox.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 
 public class JukeBoxConnection {
