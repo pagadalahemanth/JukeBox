@@ -30,7 +30,7 @@ public class Songs {
 
     public int getSongId() {
         return songId;
-    }//setter method for songId is not necessary because in jukebox db we have set to auto_increment
+    }//setter method for songId is not necessary because in jukebox db we have set to auto_increment and primary key
 
     public String getSongName() {
         return songName;
@@ -71,6 +71,11 @@ public class Songs {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+//    @Override
+//    public String toString() {
+//        return String.format("%10s\t%30s\t%30s\t%30s\t%30s\t%20s\t",songId,songName,albumName,artist,genre,duration);
+//    }
 
     @Override
     public String toString() {

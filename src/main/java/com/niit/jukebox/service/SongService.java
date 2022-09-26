@@ -14,27 +14,29 @@ public class SongService {
     public SongService(){
         songDAO = new SongDAO();
     }
-    public boolean addSong(Songs songs) throws SQLException {
+
+    private boolean checkSong(ArrayList<Songs> songsArrayList,String songname) {
         boolean result = false;
-        Songs checkSong =songDAO.getSong(songs.getSongName());
-//        if (checkSong == null) {
-//            result=songDAO.insertSongs(songs);
-//        }
-        if(checkSong(songs.getSongName())==false){
-            result =songDAO.insertSongs(songs);
+        for (Songs songs : songsArrayList) {
+            if (songs.getSongName().equals(songname)) {
+                result = true;
+                break;
+            }
         }
         return result;
     }
-
-
-    private boolean checkSong(String songname){
-        if(songsArrayList!=null){
-            return true;
-        }else{
-            return false;
+    public boolean addSong(Songs songs) throws SQLException {
+        boolean result = false;
+//        Songs checkSong =songDAO.getSong(songs.getSongName());
+//        if (checkSong == null) {
+//            result=songDAO.insertSongs(songs);
+//        }
+        if(checkSong(songsArrayList,songs.getSongName())==false){
+            result =songDAO.insertSongs(songs);
+            result=true;
         }
+        return result;
     }
-
     public void displaySongs() throws SQLException {
         songsArrayList = songDAO.getAllSongs();
         if(songsArrayList==null){
@@ -46,4 +48,6 @@ public class SongService {
             }
         }
     }
+
+
 }
