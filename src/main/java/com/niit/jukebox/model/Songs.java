@@ -11,7 +11,7 @@ public class Songs {
     public Songs() {
     }
 
-    public Songs(String songName, String albumName, String artist, String genre, String duration) {
+    public Songs(String songName, String albumName, String artist, String genre, String duration) {//To insert
         this.songName = songName;
         this.albumName = albumName;
         this.artist = artist;
@@ -19,7 +19,7 @@ public class Songs {
         this.duration = duration;
     }
 
-    public Songs(int songId, String songName, String albumName, String artist, String genre, String duration) {
+    public Songs(int songId, String songName, String albumName, String artist, String genre, String duration) {//To select
         this.songId = songId;
         this.songName = songName;
         this.albumName = albumName;
@@ -71,21 +71,21 @@ public class Songs {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+//To display in the form of tables
+    @Override
+    public String toString() {
+        return String.format("%10s\t%30s\t%30s\t%30s\t%30s\t%20s\t",songId,songName,albumName,artist,genre,duration);
+    }
 
 //    @Override
 //    public String toString() {
-//        return String.format("%10s\t%30s\t%30s\t%30s\t%30s\t%20s\t",songId,songName,albumName,artist,genre,duration);
+//        return "Songs{" +
+//                "songId=" + songId +
+//                ", songName='" + songName + '\'' +
+//                ", albumName='" + albumName + '\'' +
+//                ", artist='" + artist + '\'' +
+//                ", genre='" + genre + '\'' +
+//                ", duration='" + duration + '\'' +
+//                '}';
 //    }
-
-    @Override
-    public String toString() {
-        return "Songs{" +
-                "songId=" + songId +
-                ", songName='" + songName + '\'' +
-                ", albumName='" + albumName + '\'' +
-                ", artist='" + artist + '\'' +
-                ", genre='" + genre + '\'' +
-                ", duration='" + duration + '\'' +
-                '}';
-    }
 }

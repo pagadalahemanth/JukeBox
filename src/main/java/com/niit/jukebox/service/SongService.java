@@ -33,13 +33,14 @@ public class SongService {
 //            result=songDAO.insertSongs(songs);
 //        }
         if (checkSong(songsArrayList, songs.getSongName()) == false) {
-            result = songDAO.insertSongs(songs);
+             songDAO.insertSongs(songs);
             result = true;
         }
         return result;
     }
 
     public void displaySongs() throws SQLException {
+        ArrayList<Songs> songsArrayList;
         songsArrayList = songDAO.getAllSongs();
         if (songsArrayList == null) {
             System.out.println("Empty");
