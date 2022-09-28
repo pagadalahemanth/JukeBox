@@ -27,16 +27,17 @@ public class SongDAOTest {
         Assert.assertNotNull(songsArrayList);
     }
     @Test
-    public void checkInsertASong() throws SQLException {
-        boolean result = songDAO.insertSongs(new Songs());
-        Assert.assertTrue(true);
-    }
-    @Test
     public void checkInsertSong() throws SQLException {
-        Assert.assertEquals("java.lang.NullPointerException",songDAO.insertSongs(null));
+        boolean songs = songDAO.insertSongs(null);
+        Assert.assertEquals(false,songs);
     }
     @Test
-    public void checkSong() throws SQLException {
-        Assert.assertNotNull(songDAO.insertSongs(new Songs()));
+//    assertThrows(Class<T> expectedThrowable, ThrowingRunnable runnable)
+    //The Throwable class is the superclass of all errors and exceptions in the Java language
+//    Asserts that runnable throws an exception of type expectedThrowable when executed.
+    public void checkInsertSongNullPointer() throws NullPointerException, SQLException {
+        boolean songs = songDAO.insertSongs(null);
+        //()-> for method call
+        Assert.assertThrows(Throwable.class,() -> checkInsertSongNullPointer());
     }
 }

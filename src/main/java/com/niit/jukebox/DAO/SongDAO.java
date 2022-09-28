@@ -9,23 +9,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class SongDAO {
-    public boolean insertSongs(Songs songs) throws SQLException//we are inserting song details from java to sql using Statement
+    public boolean insertSongs(Songs songs) throws SQLException,NullPointerException//we are inserting song details from java to sql using Statement
     {//Prepared Statement is used to establish connection to pass queries at run time
-            PreparedStatement insertStatement=JukeBoxConnection.getJukeBoxConnection().prepareStatement("insert into songs (songname,albumname,artist,genre,duration) values(?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
-        //songId is not necessary becoz it is auto_incremented
-        //if u want to return songId use  .RETURN_GENERATED_KEYS
-        insertStatement.setString(1, songs.getSongName());//setString() converts into the String value
-        //And then the driver converts this to an SQL varchar or char
-        insertStatement.setString(2, songs.getAlbumName());
-        insertStatement.setString(3, songs.getArtist());
-        insertStatement.setString(4, songs.getGenre());
-        insertStatement.setString(5, songs.getDuration());
-        int result = insertStatement.executeUpdate();
-        ResultSet resultSet = insertStatement.getGeneratedKeys();//resultSet is used to display the data in the form of rows and columns
-        if(resultSet.next()){
-            System.out.println(result);
+        if(songs==null){
+            return false;
         }
-        return result>0?true:false;
+        else {
+            PreparedStatement insertStatement = JukeBoxConnection.getJukeBoxConnection().prepareStatement("insert into songs (songname,albumname,artist,genre,duration) values(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            //songId is not necessary becoz it is auto_incremented
+            //if u want to return songId use  .RETURN_GENERATED_KEYS
+            insertStatement.setString(1, songs.getSongName());//setString() converts into the String value
+            //And then the driver converts this to an SQL varchar or char
+            insertStatement.setString(2, songs.getAlbumName());
+            insertStatement.setString(3, songs.getArtist());
+            insertStatement.setString(4, songs.getGenre());
+            insertStatement.setString(5, songs.getDuration());
+            int result = insertStatement.executeUpdate();
+            ResultSet resultSet = insertStatement.getGeneratedKeys();//resultSet is used to display the data in the form of rows and columns
+            if (resultSet.next()) {
+                System.out.println(result);
+            }
+            return result > 0 ? true : false;
+        }
     }
 //To fetch a song from db
 //    public Songs getSong(String songName)throws SQLException
