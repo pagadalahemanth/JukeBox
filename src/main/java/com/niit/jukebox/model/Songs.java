@@ -74,7 +74,9 @@ public class Songs {
 //To display in the form of tables
     @Override
     public String toString() {
+        System.out.println("=======================================================================================================================================================================");
         return String.format("%10s\t%30s\t%30s\t%30s\t%30s\t%20s\t",songId,songName,albumName,artist,genre,duration);
+
     }
 
 //    @Override

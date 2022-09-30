@@ -14,9 +14,11 @@ public class PlaylistDAO {
         }
         else {
             //we have to insert into playlist table
-            PreparedStatement insertplaylist = JukeBoxConnection.getJukeBoxConnection().prepareStatement("insert into playlist (playlistname) values(?)");
+            PreparedStatement insertplaylist = JukeBoxConnection.getJukeBoxConnection().prepareStatement("insert into playlist (playlistname) values(?);");
             insertplaylist.setString(1, playlistName);
             int result = insertplaylist.executeUpdate();
+            System.out.println("No of Playlists added");
+            System.out.println(result);
             return result > 0 ? true : false;
         }
     }

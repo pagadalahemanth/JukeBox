@@ -4,6 +4,7 @@ import com.niit.jukebox.DAO.PlaylistDAO;
 import com.niit.jukebox.DAO.SongDAO;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import java.util.Hashtable;
 
 public class PlaylistDAOTest {
     PlaylistDAO playlistDAO;
+    @Before
     public void setUp(){
         playlistDAO=new PlaylistDAO();
     }
@@ -19,15 +21,20 @@ public class PlaylistDAOTest {
         playlistDAO=null;
     }
     @Test
-    public void checkViewAllPlaylists() throws SQLException{
+    public void negativeCheckViewAllPlaylists() throws SQLException{
         Hashtable<String,Integer> playlist = playlistDAO.viewAllPlaylists();
-        Assert.assertNotNull(playlist);
-        //assertNotNull(Object object)
-        //Asserts that an object isn't null.
+        Assert.assertNull(null);
     }
     @Test
     public void checkCreatePlaylist() throws SQLException{
         boolean playlist = playlistDAO.createPlaylist(null);
         Assert.assertEquals(false,playlist);
+    }
+    @Test
+    public void checkViewAllPlaylists() throws SQLException{
+        Hashtable<String,Integer> playlist = playlistDAO.viewAllPlaylists();
+        Assert.assertNotNull(playlist);
+        //assertNotNull(Object object)
+        //Asserts that an object isn't null.
     }
 }
