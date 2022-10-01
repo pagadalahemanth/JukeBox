@@ -3,6 +3,8 @@ package com.niit.jukebox.service;
 import com.niit.jukebox.DAO.JukeBoxException;
 import com.niit.jukebox.DAO.PlaylistContentDAO;
 import com.niit.jukebox.model.Songs;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -10,12 +12,12 @@ import java.util.Hashtable;
 public class PlaylistContentService {
     PlaylistContentDAO  playlistContentDAO;
     PlaylistContentDAO playListContentDAO=new PlaylistContentDAO();
-    public boolean addSongsToPlaylistContent(ArrayList<Songs> songsArrayList, Hashtable<String,Integer> playlist,String songName,String playlistName) throws Exception
+    public boolean addSongsToPlaylistContent(ArrayList<Songs> songsArrayList, Hashtable<String,Integer> playlist,String songName,String playlistName) throws JukeBoxException, SQLException
     {
         int playlistId;
         boolean result;//boolean def false
         if (songName == null && playlistName == null) {
-            throw new Exception("Provide all details");
+            throw new JukeBoxException("Provide all details");
         }else{
             playlistId= playlist.get(playlistName);
             int songId = 0;
@@ -27,14 +29,13 @@ public class PlaylistContentService {
                 }
             }
             if (songId==0)
-            { throw new Exception("Song is not present");}
+            { throw new JukeBoxException("Song is not present");}
             else if (playlistId == 0) {
-                throw new Exception("Playlist is not present");
+                throw new JukeBoxException("Playlist is not present");
             } else {
 
                 result=PlaylistContentDAO.addSongsToPlaylist(songId,playlistId);
             }
-
         }
         return result;
     }
@@ -42,7 +43,7 @@ public class PlaylistContentService {
     {
         boolean result=false;
         if(songsArrayList.isEmpty() || playlist.isEmpty() || albumName==null || playlistName==null){
-            throw new Exception("provide all values");
+            throw new JukeBoxException("provide all values");
         }else {
             int playlistId = playlist.get(playlistName);
             ArrayList<Integer> arrayList = new ArrayList<>();
@@ -53,9 +54,9 @@ public class PlaylistContentService {
                 }
             }
             if(playlistId==0)
-                throw new Exception("playlist not present");
+                throw new JukeBoxException("playlist not present");
             else if (arrayList.isEmpty())
-                throw new Exception("song not present");
+                throw new JukeBoxException("song not present");
             else
                 for(int id:arrayList){
                     playlistContentDAO.addSongsToPlaylist(id,playlistId);
@@ -69,10 +70,10 @@ public class PlaylistContentService {
         ArrayList<Songs> songlist;
         //
         if(playlistName==null || playlist.isEmpty() || songsArrayList.isEmpty() )
-            throw new JukeBoxException("Provide all the details");
+            throw new JukeBoxException("Please provide all the details");
         else{
             int playlistId=playlist.get(playlistName);
-            if(playlistId==0) throw new JukeBoxException("Play list id cannot be zero");
+            if(playlistId==0) throw new JukeBoxException("Playlist id cannot be zero");
             else {
                 songIdList = playListContentDAO.viewSongsInPlaylist(playlistId);
             }
@@ -90,6 +91,6 @@ public class PlaylistContentService {
             else
                 throw new JukeBoxException("Playlist is empty");
         }
-        return   songlist;
+        return songlist;
     }
 }

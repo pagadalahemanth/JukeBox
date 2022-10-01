@@ -17,7 +17,6 @@ public class PlaylistDAO {
             PreparedStatement insertplaylist = JukeBoxConnection.getJukeBoxConnection().prepareStatement("insert into playlist (playlistname) values(?);");
             insertplaylist.setString(1, playlistName);
             int result = insertplaylist.executeUpdate();
-            System.out.println("No of Playlists added");
             System.out.println(result);
             return result > 0 ? true : false;
         }

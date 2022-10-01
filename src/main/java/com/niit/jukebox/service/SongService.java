@@ -17,11 +17,11 @@ public class SongService {
         songDAO = new SongDAO();
     }
 
-    private boolean checkSong(ArrayList<Songs> songsArrayList, String songname) throws Exception {
+    private boolean checkSong(ArrayList<Songs> songsArrayList, String songname) throws JukeBoxException {
        // System.out.println(songname);//printing
         boolean result = false;
         if(songname==null || songsArrayList.isEmpty()){
-            throw new Exception("provide all values");
+            throw new JukeBoxException("provide all values");
         }
         else {
             for (Songs songs : songsArrayList) {
@@ -36,11 +36,11 @@ public class SongService {
         }
         return result;
     }
-    public boolean addSong(Songs songs, ArrayList<Songs> songsArrayList) throws SQLException,Exception
+    public boolean addSong(Songs songs, ArrayList<Songs> songsArrayList) throws SQLException,JukeBoxException
     {
         boolean result = false;
         if(songs==null || songsArrayList.isEmpty()){
-            throw new Exception("provide all values");
+            throw new JukeBoxException("provide all values");
         }
         else {
             if (!checkSong(songsArrayList, songs.getSongName())) {//checksong returns true if it contains given songname
@@ -52,25 +52,14 @@ public class SongService {
             return result;
         }
     }
-//    {
-//        boolean result=false;
-//        if(checkSong(songsArrayList,songs.getSongName())==false){
-//            songDAO.insertSongs(songs);
-//            result=true;
-//        }else result=false;
-//        songsArrayList.add(songs);
-//        return result;
-//    }
 
-
-
-
-    public void displaySongs(ArrayList<Songs> songsArrayList) throws SQLException, Exception {
+    public void displaySongs(ArrayList<Songs> songsArrayList) throws SQLException, JukeBoxException {
         //songsArrayList = songDAO.getAllSongs();
         if (songsArrayList == null) {
             throw new JukeBoxException("arraylist is null");
         } else {
-            System.out.format("%10s\t%30s\t%30s\t%30s\t%30s\t%20s\t", "songId", "songName", "albumName", "artist", "genre", "duration");
+            System.out.format("%10s\t%30s\t%30s\t%30s\t%30s\t%20s\t\n", "songId", "songName", "albumName", "artist", "genre", "duration");
+            System.out.println("================================================================================================================================================================");
             //Iterator<Songs> songsIterator = songsArrayList.iterator();
             for(Songs songs:songsArrayList){
                 System.out.println(songs);
@@ -80,14 +69,14 @@ public class SongService {
 //            }
         }
     }
-    public Songs getASongByName(ArrayList<Songs> songsList, String songName) throws Exception ,SQLException
+    public Songs getASongByName(ArrayList<Songs> songsList, String songName) throws JukeBoxException ,SQLException
     {
         Songs selectedSong = null;
         if(songsList.isEmpty() && songName==null){
-            throw new Exception("Please provide all values");
+            throw new JukeBoxException("Please provide all values");
         }else{
             for(Songs list:songsList){
-                if(list.getSongName().contains(songName)){
+                if(list.getSongName().equalsIgnoreCase(songName)){
                     selectedSong=list;
                     break;
                 }
@@ -95,28 +84,17 @@ public class SongService {
         }
         return selectedSong;
     }
-//    public boolean addSongs(Songs songs) throws Exception,SQLException {
-//        boolean result=false;
-//        Songs songs1 = songDAO.getSong(songs.getSongName());
-//        if(songs1==null){
-//            songDAO.insertSongs(songs);
-//            result=true;
-//        }
-//        System.out.println("Song added");
-//        return result;
-//    }
 
-
-    public ArrayList<Songs> getSongsByAlbumName(String albumName, ArrayList<Songs> songList) throws Exception {
+    public ArrayList<Songs> getSongsByAlbumName(String albumName, ArrayList<Songs> songList) throws JukeBoxException {
         if(albumName==null || songList.isEmpty()){
-            throw new Exception("Provide all values");
+            throw new JukeBoxException("Provide all values");
         }
         else {
             ArrayList<Songs> songsByAlbumName = null;
             if (songList.isEmpty() == false && albumName != null) {
                 songsByAlbumName = new ArrayList<>();
                 for (Songs songs : songList) {
-                    if (songs.getAlbumName().equals(albumName))
+                    if (songs.getAlbumName().equalsIgnoreCase(albumName))
                         songsByAlbumName.add(songs);
                 }
             }
@@ -125,9 +103,9 @@ public class SongService {
         }
     }
 
-    public ArrayList<Songs> getSongsByArtistName(String artistName, ArrayList<Songs> songList) throws Exception {
+    public ArrayList<Songs> getSongsByArtistName(String artistName, ArrayList<Songs> songList) throws JukeBoxException {
         if(artistName==null || songList.isEmpty()){
-            throw new Exception("provide all values");
+            throw new JukeBoxException("provide all values");
         }
         else {
             ArrayList<Songs> songsByAlbumName = null;
@@ -143,9 +121,9 @@ public class SongService {
         }
     }
 
-    public ArrayList<Songs> getSongsByGenre(String genre, ArrayList<Songs> songList) throws Exception {
+    public ArrayList<Songs> getSongsByGenre(String genre, ArrayList<Songs> songList) throws JukeBoxException {
         if(genre==null || songList.isEmpty()==true){//.isEmpty-Returns true if this list contains no elements.
-            throw new Exception("provide all values");
+            throw new JukeBoxException("provide all values");
         }
         else {
             ArrayList<Songs> songsByGenre = null;
@@ -156,7 +134,7 @@ public class SongService {
                         songsByGenre.add(songs);
                 }
             }
-            System.out.println("song found by genre");
+            //System.out.println("songs found by genre= "+ genre);
             return songsByGenre;
         }
     }
