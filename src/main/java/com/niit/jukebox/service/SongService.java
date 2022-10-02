@@ -25,7 +25,6 @@ public class SongService {
         }
         else {
             for (Songs songs : songsArrayList) {
-                //System.out.println("inside for loop");
                 System.out.println(songs.getSongName());
                 if (songs.getSongName().equals(songname)) {
                     //System.out.println("inside if");
@@ -57,7 +56,8 @@ public class SongService {
         //songsArrayList = songDAO.getAllSongs();
         if (songsArrayList == null) {
             throw new JukeBoxException("arraylist is null");
-        } else {
+        }
+        else {
             System.out.format("%10s\t%30s\t%30s\t%30s\t%30s\t%20s\t\n", "songId", "songName", "albumName", "artist", "genre", "duration");
             System.out.println("================================================================================================================================================================");
             //Iterator<Songs> songsIterator = songsArrayList.iterator();

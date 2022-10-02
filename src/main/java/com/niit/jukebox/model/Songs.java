@@ -76,7 +76,7 @@ public class Songs {
     public String toString() {
         //System.out.println("===============================================================================");
 //        System.out.format("%10s\t%30s\t%30s\t%30s\t%30s\t%20s\t,songId,songName,albumName,artist,genre,duration");
-        return String.format("%10s\t%30s\t%30s\t%30s\t%30s\t%20s\t\n",songId,songName,albumName,artist,genre,duration);
+        return String.format("%10s\t%30s\t%30s\t%30s\t%30s\t%20s\t\n",songId,songName,albumName,artist,genre,duration);//to represent op in the form of rows and columns
 
     }
 
