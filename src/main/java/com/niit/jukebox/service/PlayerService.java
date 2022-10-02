@@ -13,12 +13,15 @@ public class PlayerService {
     Long currentFrame;
     String status;
     int id;
+    //String filepath;
+
     // Method to play the audio
 //    public  void play(){
 //        clip.start();
 //        status = "play";
 //    }
     public void playSong(int id) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        //filepath="src/main/resources/"+id+".wav";
         audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/"+id+".wav"));
         clip = AudioSystem.getClip();//LineUnavailableException//UnsupportedAudioFileException,
         clip.open(audioInputStream);
@@ -47,7 +50,7 @@ public class PlayerService {
         clip.close();
         resetAudioStream();
         clip.setMicrosecondPosition(currentFrame);
-        //this.playSong(id);
+        this.playSong(id);
     }
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/"+id+".wav"));
