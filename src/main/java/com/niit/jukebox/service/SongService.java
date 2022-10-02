@@ -57,7 +57,7 @@ public class SongService {
         if (songsArrayList == null) {
             throw new JukeBoxException("arraylist is null");
         }
-        else {
+            else {
             System.out.format("%10s\t%30s\t%30s\t%30s\t%30s\t%20s\t\n", "songId", "songName", "albumName", "artist", "genre", "duration");
             System.out.println("================================================================================================================================================================");
             //Iterator<Songs> songsIterator = songsArrayList.iterator();

@@ -215,17 +215,12 @@ public class MainMethod {
                             String playlistName = sc.nextLine();
                             ArrayList<Songs> songsToPlay = playlistContentService.getSongsFromplaylistContent(playlistName, playlists, songsArrayList);
                             int c = 0;
-                        System.out.println("Enter songId");
-                        songId = sc.nextInt();
+                            System.out.println("Enter songId");
+                            songId = sc.nextInt();
                             for (Songs songs : songsToPlay) {
                                 playerService.playSong(songId);//plays song
 
                                 while (true) {
-
-//                                if(songs.getSongId()==songId)
-                                    //break;
-
-
                                     System.out.println("1. pause");
                                     System.out.println("2. resume");
                                     System.out.println("3. restart");
@@ -234,8 +229,10 @@ public class MainMethod {
                                     c = sc.nextInt();
                                     playerService.gotoChoice(c);
                                     if (c == 4)
+                                        //playerService.stop();
                                         break;
                                 }
+                                break;
                             }
                         break;
 //                            while (true) {

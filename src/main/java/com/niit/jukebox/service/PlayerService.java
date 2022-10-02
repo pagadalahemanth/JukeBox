@@ -50,7 +50,7 @@ public class PlayerService {
         clip.close();
         resetAudioStream();
         clip.setMicrosecondPosition(currentFrame);
-        this.playSong(id);
+        //this.playSong(id);
     }
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/"+id+".wav"));
@@ -67,7 +67,7 @@ public class PlayerService {
         resetAudioStream();
         currentFrame = 0L;
         clip.setMicrosecondPosition(0);
-        this.playSong(id);
+        //this.playSong(id);
     }
     // Method to stop the audio
     public void stop() throws UnsupportedAudioFileException,
@@ -87,7 +87,7 @@ public class PlayerService {
             resetAudioStream();
             this.currentFrame = c;
             this.clip.setMicrosecondPosition(c);
-            playSong(id);
+            //playSong(id);
         }
         else
             System.out.println("provide between given 0 and 259622312");
