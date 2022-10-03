@@ -90,7 +90,7 @@ public class MainMethod {
                                 ArrayList<Songs> songs2 = songService.getSongsByGenre(Genre, songsArrayList);//this will return an arraylist of songs
                                 if (songs2 != null) {
                                     System.out.println(songs2);
-                                    System.out.println("songs found by genre= " + Genre);
+                                    //System.out.println("songs found by genre= " + Genre);
                                 } else
                                     System.out.println(Genre + " Genre not found");
                                 break;

@@ -86,21 +86,24 @@ public class SongService {
     }
 
     public ArrayList<Songs> getSongsByAlbumName(String albumName, ArrayList<Songs> songList) throws JukeBoxException {
-        if(albumName==null || songList.isEmpty()){
-            throw new JukeBoxException("Provide all values");
+        ArrayList<Songs> songsByAlbumName = null;
+        if(albumName==null || songList.isEmpty() || albumName.equals(albumName)==false){
+            throw new JukeBoxException("Provide all correct values");
         }
         else {
-            ArrayList<Songs> songsByAlbumName = null;
+
             if (songList.isEmpty() == false && albumName != null) {
                 songsByAlbumName = new ArrayList<>();
                 for (Songs songs : songList) {
-                    if (songs.getAlbumName().equalsIgnoreCase(albumName))
+                    if (songs.getAlbumName().equalsIgnoreCase(albumName)) {
                         songsByAlbumName.add(songs);
+                    }
                 }
             }
-            System.out.println("song got by album");
-            return songsByAlbumName;
+//            else if(albumName==null)
+//                System.out.println("song not found by album");
         }
+        return songsByAlbumName;
     }
 
     public ArrayList<Songs> getSongsByArtistName(String artistName, ArrayList<Songs> songList) throws JukeBoxException {
@@ -130,8 +133,9 @@ public class SongService {
             if (songList.isEmpty() == false && genre != null) {
                 songsByGenre = new ArrayList<>();
                 for (Songs songs : songList) {
-                    if (songs.getGenre().contains(genre))
+                    if (songs.getGenre().contains(genre)) {
                         songsByGenre.add(songs);
+                    }
                 }
             }
             //System.out.println("songs found by genre= "+ genre);
