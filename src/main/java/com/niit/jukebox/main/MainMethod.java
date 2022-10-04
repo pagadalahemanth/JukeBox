@@ -1,5 +1,6 @@
 package com.niit.jukebox.main;
 
+import com.niit.jukebox.DAO.JukeBoxException;
 import com.niit.jukebox.DAO.PlaylistDAO;
 import com.niit.jukebox.DAO.SongDAO;
 import com.niit.jukebox.model.Songs;
@@ -88,10 +89,10 @@ public class MainMethod {
                                 sc.nextLine();
                                 String Genre = sc.nextLine();
                                 ArrayList<Songs> songs2 = songService.getSongsByGenre(Genre, songsArrayList);//this will return an arraylist of songs
-                                if (songs2 != null) {
+                                if (songs2.isEmpty()==false) {
                                     System.out.println(songs2);
                                     //System.out.println("songs found by genre= " + Genre);
-                                } else
+                                } else if(songs2.contains(Genre)==false)
                                     System.out.println(Genre + " Genre not found");
                                 break;
                             case 4:
@@ -99,7 +100,7 @@ public class MainMethod {
                                 sc.nextLine();
                                 String artistname = sc.next();
                                 ArrayList<Songs> songs3 = songService.getSongsByArtistName(artistname, songsArrayList);
-                                if (songs3 != null) {
+                                if (songs3.isEmpty()==false) {
                                     System.out.println(songs3);
                                 } else
                                     System.out.println(artistname + " artist not found");
@@ -110,7 +111,7 @@ public class MainMethod {
                                 sc.nextLine();
                                 String albumname = sc.nextLine();
                                 ArrayList<Songs> songs4 = songService.getSongsByAlbumName(albumname, songsArrayList);
-                                if (songs4 != null) {
+                                if (songs4.isEmpty()==false) {
                                     System.out.println(songs4);
                                 } else
                                     System.out.println(albumname + " album not found");
@@ -166,12 +167,10 @@ public class MainMethod {
                                 System.out.println("Enter the playlistName: ");
                                 //sc.nextLine();
                                 String playlistName = sc.nextLine();
-                                //playlistContentService.addSongsToPlaylistContent(songsArrayList, playlists, songName, playlistName);
-                                //System.out.println(result);
                                 if (playlistContentService.addSongsToPlaylistContent(songsArrayList, playlists, songName, playlistName) == true) {
                                     System.out.println(songName.toUpperCase() + " song added to playlist " + playlistName.toUpperCase());
-                                } else
-                                    System.out.println("song is not added to playlist");
+                                }//else System.out.println("song is already present");
+                                //throw new JukeBoxException("Song is already pressent");
                                 break;
                             case 4:
                                 System.out.println("Enter the  albumname: ");
@@ -180,10 +179,11 @@ public class MainMethod {
                                 System.out.println("Enter the playlistName: ");
                                 //sc.nextLine();
                                 String playlistnames = sc.nextLine();
-                                if (playlistContentService.addSongsByAlbumNameToPlaylistContent(songsArrayList, playlists, albumName, playlistnames) == true) {
+                                if ( playlistContentService.addSongsByAlbumNameToPlaylistContent(songsArrayList, playlists, albumName, playlistnames) == true) {
                                     System.out.println(albumName.toUpperCase() + " album added to playlist " + playlistnames);
-                                } else
-                                    System.out.println("album is not added to playlist");
+                                    }
+//                                } else
+//                                    System.out.println("album is not present in playlist");
                                 break;
                             case 5:
                                 sc.nextLine();
@@ -192,9 +192,10 @@ public class MainMethod {
                                 //try {
                                 ArrayList<Songs> playlistsongs = playlistContentService.getSongsFromplaylistContent(playlistnam, playlists, songsArrayList);
                                 //System.out.println(playlistsongs);
-                                if (playlistsongs != null) {
+
+                                if (playlistsongs != null && playlists.containsKey(playlistnam)==true) {
                                     songService.displaySongs(playlistsongs);
-                                } else System.out.println("songs not present");
+                                } else System.out.println("songs not present or provide correct details");
 //                            } catch (Exception e) {
 //                                System.out.println(e.getMessage());;
 //                            }

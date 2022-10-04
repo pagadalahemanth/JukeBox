@@ -15,12 +15,18 @@ public class PlaylistContentService {
     public boolean addSongsToPlaylistContent(ArrayList<Songs> songsArrayList, Hashtable<String,Integer> playlist,String songName,String playlistName) throws JukeBoxException, SQLException
     {
         int playlistId;
-        boolean result;//boolean def false
+        int songId = 0;
+        boolean result=false;//boolean def false
         if (songName == null && playlistName == null) {
             throw new JukeBoxException("Provide all details");
-        }else{
+        }
+        if(playlist.contains(songName)==false || playlist.contains(playlistName)==false){
+            throw new JukeBoxException("song is not present");
+        }
+
+        else{
             playlistId= playlist.get(playlistName);
-            int songId = 0;
+
             for (Songs song : songsArrayList) {
                 if (song.getSongName().equalsIgnoreCase(songName)) {
                     songId = song.getSongId();
@@ -44,7 +50,10 @@ public class PlaylistContentService {
         boolean result=false;
         if(songsArrayList.isEmpty() || playlist.isEmpty() || albumName==null || playlistName==null){
             throw new JukeBoxException("provide all values");
-        }else {
+        }if(playlist.containsKey(albumName)==false || playlist.contains(playlistName)==false){
+            throw new JukeBoxException("album is not present");
+    }
+        else {
             int playlistId = playlist.get(playlistName);
             ArrayList<Integer> arrayList = new ArrayList<>();
             for(Songs songs:songsArrayList){
@@ -72,9 +81,10 @@ public class PlaylistContentService {
         if(playlistName==null || playlist.isEmpty() || songsArrayList.isEmpty() )
             throw new JukeBoxException("Please provide all the details");
         else{
-            int playlistId=playlist.get(playlistName);
-            if(playlistId==0) throw new JukeBoxException("Playlist id cannot be zero");
+            int playlistId=0;
+            if(playlist.containsKey(playlistName)==false) throw new JukeBoxException("Playlist is not present");
             else {
+                playlistId=playlist.get(playlistName);
                 songIdList = playListContentDAO.viewSongsInPlaylist(playlistId);
             }
             if(songIdList.isEmpty()==false)

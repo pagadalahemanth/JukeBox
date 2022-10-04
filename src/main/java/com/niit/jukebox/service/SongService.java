@@ -119,7 +119,6 @@ public class SongService {
                         System.out.println(songsByAlbumName.add(songs));
                 }
             }
-            System.out.println("song found by artist");
             return songsByAlbumName;
         }
     }
@@ -130,6 +129,7 @@ public class SongService {
         }
         else {
             ArrayList<Songs> songsByGenre = null;
+
             if (songList.isEmpty() == false && genre != null) {
                 songsByGenre = new ArrayList<>();
                 for (Songs songs : songList) {
@@ -138,7 +138,6 @@ public class SongService {
                     }
                 }
             }
-            //System.out.println("songs found by genre= "+ genre);
             return songsByGenre;
         }
     }
